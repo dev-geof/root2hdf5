@@ -19,6 +19,10 @@ To install `root2hdf5` and its dependencies you can use the following command:
 ```bash
 python -m pip install -e . -r requirements.txt
 ```
+Pre-built `root2hdf5` can can also be installed from PyPI via:
+```bash
+pip install root2hdf5
+```
 
 ## Usage
 
