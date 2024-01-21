@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="root2hdf5",
-    version="0.1.2",
+    version="0.1.3",
     author="Geoffrey Gilles",
     description="Lightweight ROOT to HDF5 file converter",
     long_description=long_description,
