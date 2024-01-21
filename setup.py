@@ -14,7 +14,7 @@ setuptools.setup(
     packages=setuptools.find_packages(),
     entry_points={
         "console_scripts": [
-            "root2hdf5=root2hdf5:main",
+            "root2hdf5=src:main",
         ],
     },
     classifiers=[
@@ -25,4 +25,5 @@ setuptools.setup(
         "Topic :: Scientific/Engineering",
     ],
     python_requires=">=3.9.13",
+    test_suite="tests", 
 )
