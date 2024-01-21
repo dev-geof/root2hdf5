@@ -11,8 +11,6 @@ To get started you can clone the `root2hdf5` repository from GitHub using the fo
 git clone https://github.com/dev-geof/root2hdf5.git
 ```
 
-To be available on PyPI.
-
 ## Installation
 
 To install `root2hdf5` and its dependencies you can use the following command:
