@@ -14,7 +14,7 @@ setuptools.setup(
     packages=setuptools.find_packages(),
     entry_points={
         "console_scripts": [
-            "root2hdf5=src.root2hdf5:main",
+            "root2hdf5=src.root2hdf5:root2hdf5",
         ],
     },
     classifiers=[
