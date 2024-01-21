@@ -27,8 +27,9 @@ def root2hdf5(input_root_file: str, output_hdf5_file: str, tree_name: str) -> No
                 break
 
         if matching_tree_name is None:
+            available_trees = [key.split(";")[0] for key in root_file.keys()]
             raise ValueError(
-                f"Tree '{tree_name}' does not exist in the ROOT file. Available trees: {list(root_file.keys())}"
+                f"Tree '{tree_name}' does not exist in the ROOT file. Available trees: {available_trees}"
             )
 
         # Find the latest version suffix for the specified tree name
