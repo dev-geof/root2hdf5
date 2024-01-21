@@ -8,8 +8,8 @@ from src.root2hdf5 import root2hdf5
 class TestRoot2HDF5Converter(unittest.TestCase):
     def test_conversion(self):
         # Define paths
-        input_root_file = "test.root"
-        output_hdf5_file = "test_output.h5"
+        input_root_file = "tests/test.root"
+        output_hdf5_file = "tests/test_output.h5"
         tree_name = "Tree"
 
         # Run the conversion
