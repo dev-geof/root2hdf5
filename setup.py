@@ -12,6 +12,12 @@ setuptools.setup(
     long_description_content_type="text/markdown",
     url="https://github.com/dev-geof/root2hdf5",
     packages=setuptools.find_packages(),
+    install_requires=[
+        'uproot==5.0.4',
+        'h5py==3.8.0',
+        'numpy==1.24.2',
+        'tqdm==4.62.3',
+    ],
     entry_points={
         "console_scripts": [
             "root2hdf5=src.root2hdf5:main",
