@@ -81,7 +81,12 @@ def root2hdf5(input_root_file: str, output_hdf5_file: str, tree_name: str) -> No
         print(f"Error:{str(e)}")
 
 
-if __name__ == "__main__":
+def main():
+    """
+    Entry point for the ROOT to HDF5 conversion script.
+    
+    Parses command-line arguments and invokes the root2hdf5 function.
+    """
     parser = argparse.ArgumentParser(description="ROOT to HDF5 file converter")
     parser.add_argument(
         "-i",
@@ -107,3 +112,6 @@ if __name__ == "__main__":
 
     args = vars(parser.parse_args())
     root2hdf5(**args)
+
+if __name__ == "__main__":
+    main()
