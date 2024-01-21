@@ -2,7 +2,7 @@
 
 ## Introduction
 
-The `root2hdf5` tool provides a streamlined and efficient solution for converting CERN ROOT files into HDF5 format. This lightweight implementation specifically targets ROOT files containing `TTree` structures, seamlessly transforming them into organized HDF5 compound datasets.
+The `root2hdf5` tool provides a streamlined solution for converting CERN ROOT files into HDF5 format. This lightweight implementation specifically targets ROOT files containing `TTree` structures, seamlessly transforming them into organized HDF5 compound datasets.
 
 ## Getting the Code
 
