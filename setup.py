@@ -13,10 +13,10 @@ setuptools.setup(
     url="https://github.com/dev-geof/root2hdf5",
     packages=setuptools.find_packages(),
     install_requires=[
-        'uproot==5.0.4',
-        'h5py==3.8.0',
-        'numpy==1.24.2',
-        'tqdm==4.62.3',
+        "uproot==5.0.4",
+        "h5py==3.8.0",
+        "numpy==1.24.2",
+        "tqdm==4.62.3",
     ],
     entry_points={
         "console_scripts": [
@@ -31,5 +31,5 @@ setuptools.setup(
         "Topic :: Scientific/Engineering",
     ],
     python_requires=">=3.9.13",
-    test_suite="tests", 
+    test_suite="tests",
 )

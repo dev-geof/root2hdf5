@@ -4,6 +4,7 @@ import argparse
 import numpy as np
 from tqdm import tqdm
 
+
 def convert_vector_branch(branch):
     """
     Convert a vector branch to a format suitable for HDF5 storage.
@@ -29,6 +30,7 @@ def convert_vector_branch(branch):
     flattened_branch = np.array(branch).flatten()
     dtype = [(f"f{i}", "<f8") for i in range(len(flattened_branch))]
     return np.array([tuple(x) for x in flattened_branch], dtype=dtype)
+
 
 def root2hdf5(input_root_file: str, output_hdf5_file: str, tree_name: str) -> None:
     """
@@ -100,7 +102,9 @@ def root2hdf5(input_root_file: str, output_hdf5_file: str, tree_name: str) -> No
             # Check if the array has a numeric dtype
             if np.issubdtype(branch_array.dtype, np.number):
                 branch_data[branch_name] = np.array(branch_array)
-            elif isinstance(branch_array[0], (list, np.ndarray)):  # Check if it's a vector branch
+            elif isinstance(
+                branch_array[0], (list, np.ndarray)
+            ):  # Check if it's a vector branch
                 branch_data[branch_name] = convert_vector_branch(branch_array)
             else:
                 print(

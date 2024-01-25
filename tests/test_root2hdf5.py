@@ -29,7 +29,7 @@ class TestRoot2HDF5Converter(unittest.TestCase):
                 [
                     (1, 2.5, 3.5, (1, 2, 3), (1.5, 2.5, 3.5), (4.5, 5.5, 6.5)),
                     (2, 3.5, 4.5, (2, 3, 4), (2.5, 3.5, 4.5), (5.5, 6.5, 7.5)),
-                    (3, 4.5, 5.5, (3, 4, 5), (3.5, 4.5, 5.5), (6.5, 7.5, 8.5))
+                    (3, 4.5, 5.5, (3, 4, 5), (3.5, 4.5, 5.5), (6.5, 7.5, 8.5)),
                 ],
                 dtype=[
                     ("Branch1", "<i4"),
@@ -37,13 +37,14 @@ class TestRoot2HDF5Converter(unittest.TestCase):
                     ("Branch3", "<f8"),
                     ("Branch4", [("f0", "<f8"), ("f1", "<f8"), ("f2", "<f8")]),
                     ("Branch5", [("f0", "<f8"), ("f1", "<f8"), ("f2", "<f8")]),
-                    ("Branch6", [("f0", "<f8"), ("f1", "<f8"), ("f2", "<f8")])
-                ]
+                    ("Branch6", [("f0", "<f8"), ("f1", "<f8"), ("f2", "<f8")]),
+                ],
             )
             np.testing.assert_array_equal(dataset[:], expected_data)
-            
+
         # Clean up - remove the created HDF5 file
         os.remove(output_hdf5_file)
+
 
 if __name__ == "__main__":
     unittest.main()
