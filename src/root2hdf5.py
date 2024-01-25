@@ -12,22 +12,23 @@ def convert_vector_branch(branch):
     - branch (array-like): The vector branch to be converted.
 
     Returns:
-    - np.ndarray: An array suitable for HDF5 storage, where each element is an array representing the elements
-      of the original vector branch.
+    - np.ndarray: An array suitable for HDF5 storage.
 
     Notes:
     This function is designed to handle vector branches in ROOT files, where each entry in the branch
-    is a vector (list or array) of elements. The function converts the vector branch into an array of arrays,
-    allowing it to be stored in HDF5 datasets.
+    is a vector (list or array) of elements. The function flattens the nested arrays and stores them
+    as a structured array, allowing it to be stored in HDF5 datasets.
 
     Example:
     If the input vector branch looks like:
     [ [1, 2, 3], [4, 5, 6], [7, 8, 9] ]
 
     The output would be:
-    array([array([1, 2, 3]), array([4, 5, 6]), array([7, 8, 9])], dtype=object)
+    array([(1, 2, 3), (4, 5, 6), (7, 8, 9)], dtype=[('f0', '<f8'), ('f1', '<f8'), ('f2', '<f8')])
     """
-    return np.array([np.array(x) for x in branch], dtype=object)
+    flattened_branch = np.array(branch).flatten()
+    dtype = [(f"f{i}", "<f8") for i in range(len(flattened_branch))]
+    return np.array([tuple(x) for x in flattened_branch], dtype=dtype)
 
 def root2hdf5(input_root_file: str, output_hdf5_file: str, tree_name: str) -> None:
     """
@@ -99,9 +100,7 @@ def root2hdf5(input_root_file: str, output_hdf5_file: str, tree_name: str) -> No
             # Check if the array has a numeric dtype
             if np.issubdtype(branch_array.dtype, np.number):
                 branch_data[branch_name] = np.array(branch_array)
-            elif isinstance(
-                branch_array[0], (list, np.ndarray)
-            ):  # Check if it's a vector branch
+            elif isinstance(branch_array[0], (list, np.ndarray)):  # Check if it's a vector branch
                 branch_data[branch_name] = convert_vector_branch(branch_array)
             else:
                 print(
