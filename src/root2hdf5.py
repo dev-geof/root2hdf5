@@ -4,6 +4,30 @@ import argparse
 import numpy as np
 from tqdm import tqdm
 
+def convert_vector_branch(branch):
+    """
+    Convert a vector branch to a format suitable for HDF5 storage.
+
+    Parameters:
+    - branch (array-like): The vector branch to be converted.
+
+    Returns:
+    - np.ndarray: An array suitable for HDF5 storage, where each element is an array representing the elements
+      of the original vector branch.
+
+    Notes:
+    This function is designed to handle vector branches in ROOT files, where each entry in the branch
+    is a vector (list or array) of elements. The function converts the vector branch into an array of arrays,
+    allowing it to be stored in HDF5 datasets.
+
+    Example:
+    If the input vector branch looks like:
+    [ [1, 2, 3], [4, 5, 6], [7, 8, 9] ]
+
+    The output would be:
+    array([array([1, 2, 3]), array([4, 5, 6]), array([7, 8, 9])], dtype=object)
+    """
+    return np.array([np.array(x) for x in branch], dtype=object)
 
 def root2hdf5(input_root_file: str, output_hdf5_file: str, tree_name: str) -> None:
     """
@@ -12,9 +36,25 @@ def root2hdf5(input_root_file: str, output_hdf5_file: str, tree_name: str) -> No
     Parameters:
     - input_root_file (str): The name of the input ROOT file.
     - output_hdf5_file (str): The name of the output HDF5 file.
-    - tree_name (str): The name of the tree to be processed.
-    """
+    - tree_name (str): The name of the ROOT tree to be processed.
 
+    Raises:
+    - ValueError: If the specified tree does not exist in the ROOT file or if the output dataset
+      already exists in the HDF5 file.
+
+    Notes:
+    This function reads a ROOT file, extracts the specified tree, and converts its branches into
+    an HDF5 dataset. Numeric branches are directly converted, while vector branches are transformed
+    into arrays suitable for HDF5 storage.
+
+    Example:
+    ```python
+    root2hdf5("input.root", "output.h5", "my_tree")
+    ```
+
+    In this example, the function reads the "my_tree" from "input.root" and saves it as an HDF5 dataset
+    in "output.h5".
+    """
     try:
         # Open ROOT file
         root_file = uproot.open(input_root_file)
