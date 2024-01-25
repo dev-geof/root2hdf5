@@ -54,7 +54,19 @@ def root2hdf5(input_root_file: str, output_hdf5_file: str, tree_name: str) -> No
         # Loop over branches, extract data, and save as individual arrays
         for branch_name in tqdm(branch_names):
             # Extract the array for the current branch
-            branch_data[branch_name] = np.array(tree[branch_name].array(library="np"))
+            branch_array = tree[branch_name].array(library="np")
+
+            # Check if the array has a numeric dtype
+            if np.issubdtype(branch_array.dtype, np.number):
+                branch_data[branch_name] = np.array(branch_array)
+            elif isinstance(
+                branch_array[0], (list, np.ndarray)
+            ):  # Check if it's a vector branch
+                branch_data[branch_name] = convert_vector_branch(branch_array)
+            else:
+                print(
+                    f"Skipping branch '{branch_name}' with unsupported type: {branch_array.dtype}"
+                )
 
         # Combine the arrays into a structured array
         data = np.array(
@@ -85,7 +97,7 @@ def root2hdf5(input_root_file: str, output_hdf5_file: str, tree_name: str) -> No
 def main():
     """
     Entry point for the ROOT to HDF5 conversion script.
-    
+
     Parses command-line arguments and invokes the root2hdf5 function.
     """
     parser = argparse.ArgumentParser(description="ROOT to HDF5 file converter")
@@ -113,6 +125,7 @@ def main():
 
     args = vars(parser.parse_args())
     root2hdf5(**args)
+
 
 if __name__ == "__main__":
     main()
