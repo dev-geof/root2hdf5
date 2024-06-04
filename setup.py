@@ -16,7 +16,7 @@ setuptools.setup(
         "uproot==5.0.4",
         "h5py==3.8.0",
         "numpy==1.24.2",
-        "tqdm==4.62.3",
+        "tqdm==4.66.3",
     ],
     entry_points={
         "console_scripts": [
